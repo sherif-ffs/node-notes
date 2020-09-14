@@ -7,9 +7,9 @@ const getNotes = () => {
 
 const addNote = (title, description) => {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter((note) => note.title === title)
-
-    if (duplicateNotes.length === 0) {
+    const duplicateNote = notes.find(note => note.title === title)
+    
+    if (!duplicateNote) {
         notes.push({
             title: title,
             description: description
@@ -51,8 +51,16 @@ const loadNotes = () => {
     }
 }
 
+const listNotes = () => {
+    const notes = loadNotes()
+    notes.forEach(note => {
+        console.log(chalk.green(`Note Title: ${note.title}`))
+    })
+}
+
 module.exports = {
     getNodes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes
 }
